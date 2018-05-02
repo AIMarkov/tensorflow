@@ -1,0 +1,46 @@
+import numpy as np
+import tensorflow as tf
+import math
+from matplotlib import pyplot as pl
+
+X = tf.placeholder(tf.float32, [None, 1])
+Y = tf.placeholder(tf.float32, [None, 1])
+class NN(object):
+    def __init__(self):
+
+        self.w1=tf.Variable(tf.random_normal([1,3],stddev=1,seed=1))
+        self.bias1=tf.Variable(tf.random_normal([1,3],stddev=1,seed=1))
+        self.w2=tf.Variable(tf.random_normal([3,3],stddev=1,seed=1))
+        self.bias2=tf.Variable(tf.random_normal([1,3],stddev=1,seed=1))
+        self.w3=tf.Variable(tf.random_normal([3,1],stddev=1,seed=1))
+    def forward(self):
+        output1=tf.nn.tanh(tf.matmul(X,self.w1)+self.bias1)
+        output2=tf.nn.tanh(tf.matmul(output1,self.w2)+self.bias2)
+        output=tf.matmul(output2,self.w3)
+        return output
+    def loss(self):
+        cross_entropy=tf.reduce_mean(tf.reduce_sum(tf.square(Y- self.forward()),
+                     reduction_indices=[1]))
+        return cross_entropy
+nn=NN()
+train_step=tf.train.AdamOptimizer(0.05).minimize(nn.loss())
+#train_step=tf.train.GradientDescentOptimizer(0.1).minimize(cross_entropy)
+
+def data(N):
+    x=np.random.uniform(0,20,[N,1])
+    noise = np.random.normal(0, 0.01, x.shape)
+    y=x*2+1+noise
+    return  x,y
+
+init=tf.global_variables_initializer()
+sess=tf.Session()
+sess.run(init)
+for i in range(1000):
+    x,y=data(100)
+    sess.run(train_step,feed_dict={X:x,Y:y})
+    print("loss:",sess.run(nn.loss(),feed_dict={X:x,Y:y}))
+x,y=data(10)
+pl.plot(x,y,'r.')
+predict=sess.run(nn.forward(),feed_dict={X:x})
+pl.plot(x,predict,'y.')
+pl.show()
