@@ -1,3 +1,4 @@
+#这是手撸的LSTM，帮助理解网络结构
 import numpy as np
 import time
 from tensorflow.examples.tutorials.mnist import input_data
