@@ -1,26 +1,4 @@
-# import requests
-# from bs4 import BeautifulSoup
-# class spider():
-#     def __init__(self,url):
-#         self.url=url
-#     def gethtmltext(self):
-#         try:
-#             html=requests.get(self.url,timeout=30)
-#             html.raise_for_status()
-#             html.encoding=html.apparent_encoding
-#             return  html.text
-#         except:
-#             print('Something goes wrong')
-# def fillUnivList(ulist,html):
-#     soup=BeautifulSoup(html,"html.parser")
-#     for tr in soup.find('tbody').children:
-# url='http://www.zuihaodaxue.cn/zuihaodaxuepaiming2016.html'
-# Spider=spider(url)
-# html=Spider.gethtmltext()
-# print(html)
-#
-#
-#
+
 import tensorflow as tf
 import numpy as np
 
