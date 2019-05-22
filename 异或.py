@@ -1,6 +1,6 @@
 '''
 
-    Do machine learning by tensorflow
+异或至少需要两层
 
 '''
 
