@@ -1,6 +1,6 @@
 '''
 
-    Do machine learning by tensorflow
+and和or是线性可分的所以一层就可以
 
 '''
 
